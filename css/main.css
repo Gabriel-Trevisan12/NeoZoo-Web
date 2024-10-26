@@ -1,0 +1,366 @@
+
+.img-portada{
+ width: 100%;
+ height: 200px;
+}
+
+
+/* globales */
+
+*::after,
+*::before,
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0 auto;
+    max-width: 1200px;
+    font-family: 'Lato';
+    color: rgb(41, 41, 41);
+    background-color: rgb(17, 96, 63);
+}
+
+/* Carrusel */
+
+.carrusel {
+    width: 50%;
+    max-width: 28%;
+    height: auto;
+    background-color: #fff;
+    border-radius: 0.7em;
+    padding: 0.2em;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center;
+    margin: 0 auto;
+    margin-bottom: 2%;
+}
+
+.carrusel-grande {
+    width: 200%;
+    background-color: #fff;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0.7em;
+    padding: 0.5em;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    margin: 0.3em;
+    transition: all .5s ease;
+    transform: translate(0%);
+}
+
+.carrusel-imagenes {
+    width: calc(50% - 2em);
+    background-color: black;
+    min-height: 10vh;
+    height: 300px;
+    width: 300px;
+    min-width: none;
+    border-radius: 0.7em;
+}
+
+/* Puntos de navegación del carrusel */
+
+.puntos {
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.7em;
+}
+
+.punto {
+    width: 2em;
+    height: 2em;
+    background-color:#fff;
+    color: #fff; 
+    text-align: center;
+    margin: 1em 1em 0;
+    border-radius: 50%;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+.punto.activo {
+    background-color: rgb(17, 96, 63);
+    color: rgb(17, 96, 63);
+
+}
+
+
+/* Iconos y menus */
+
+.icon-cart {
+    width: 60px;
+    padding: 10px;
+    stroke: black;
+    cursor: pointer;
+}
+
+.icono-menu img {
+    width: 60px;
+    padding: 10px;
+}
+
+.menu-portada {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
+    margin-left: auto;
+}
+
+.menu-span {
+    font-weight: bold;
+    font-size: 13px;
+    font-family: 'Lato';
+    color: rgb(41, 41, 41);
+}
+
+.menu-span:hover {
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.5s ease;
+}
+
+/* Portada */
+
+.portada {
+    width: 100%;
+}
+
+.img-portada {
+    width: 100%;
+}
+
+/* Contador de productos */
+
+.count-products {
+    position: absolute;
+    top: 10%;
+    right: 2%;
+    background-color: black;
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+/* Carrito */
+
+.container-cart-products {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #fff;
+    width: 100%;
+    max-width: 400px;
+    z-index: 1;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.container-icon {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.icon-close {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.icon-close:hover {
+    stroke: red;
+}
+
+/* Carrito - Productos */
+
+.cart-product {
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.info-cart-product {
+    display: flex;
+    justify-content: space-between;
+    flex: 0.8;
+}
+
+.titulo-producto-carrito,
+.precio-producto-carrito,
+.cantidad-producto-carrito {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 15px 0;
+    gap: 20px;
+}
+
+.cart-total h3 {
+    font-size: 20px;
+}
+
+.total-pagar {
+    font-size: 20px;
+    font-weight: 900;
+}
+
+/* Imagenes generales */
+
+img {
+    max-width: 100%;
+}
+
+/* Header */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+/* Main - Productos */
+
+.container-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.item {
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+}
+
+.item:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    background-color: rgb(17, 96, 63);
+    transition: 0.5s ease;
+}
+
+.item img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+    transition: all 0.5s;
+}
+
+.item:hover img {
+    transform: scale(1.2);
+}
+
+.item figure {
+    overflow: hidden;
+}
+
+.info-product {
+    padding: 15px 30px;
+    line-height: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.info-product button {
+    position: relative;
+    border-radius: 20px;
+    border: none;
+    background: rgb(0, 0, 0);
+    color: blanchedalmond;
+    padding: 15px 10px;
+    cursor: pointer;
+}
+
+/* Ocultos */
+
+.hidden-cart {
+    display: none;
+}
+
+.cart-empty {
+    padding: 20px;
+    text-align: center;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+
+    .carrusel {
+        width: 70%;
+        max-width: 70%;
+    }
+    .container-items {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .menu-portada, .container-cart-products {
+        width: 100%;
+    }
+
+    .cart-product {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .info-product button {
+        padding: 10px 5px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .carrusel {
+        width: 90%;
+        max-width: 90%;
+    }
+    
+    .container-items {
+        grid-template-columns: 2 ,1fr;
+    }
+
+    .info-product {
+        padding: 10px 15px;
+    }
+
+    .cart-total, .cart-total h3, .total-pagar {
+        font-size: 18px;
+    }
+
+    .item img {
+        height: 200px;
+    }
+}

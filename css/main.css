@@ -1,10 +1,4 @@
 
-.img-portada{
- width: 100%;
- height: 200px;
-}
-
-
 /* globales */
 
 *::after,
@@ -16,18 +10,18 @@
 }
 
 body {
+    max-width: 90%;
     margin: 0 auto;
-    max-width: 1200px;
     font-family: 'Lato';
     color: rgb(41, 41, 41);
-    background-color: rgb(17, 96, 63);
+    background-color: rgb(255, 255, 255);
 }
 
 /* Carrusel */
 
 .carrusel {
-    width: 50%;
-    max-width: 28%;
+    width: 100%;
+    max-width: 100%;
     height: auto;
     background-color: #fff;
     border-radius: 0.7em;
@@ -48,7 +42,6 @@ body {
     justify-content: space-between;
     align-items: center;
     border-radius: 0.7em;
-    padding: 0.5em;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     margin: 0.3em;
     transition: all .5s ease;
@@ -56,11 +49,10 @@ body {
 }
 
 .carrusel-imagenes {
-    width: calc(50% - 2em);
-    background-color: black;
+    width: calc(50% 100 - 2em);
     min-height: 10vh;
-    height: 300px;
-    width: 300px;
+    height: 400px;
+    width: 100%;
     min-width: none;
     border-radius: 0.7em;
 }
@@ -97,15 +89,16 @@ body {
 /* Iconos y menus */
 
 .icon-cart {
+    position: absolute;
     width: 60px;
     padding: 10px;
-    stroke: black;
+    stroke: rgb(0, 0, 0);
     cursor: pointer;
 }
 
 .icono-menu img {
-    width: 60px;
-    padding: 10px;
+    width: 12em;
+    position: relative;
 }
 
 .menu-portada {
@@ -133,11 +126,15 @@ body {
 /* Portada */
 
 .portada {
+    display: flex;
     width: 100%;
+    justify-content: center;
 }
 
 .img-portada {
     width: 100%;
+    height: 32em;
+
 }
 
 /* Contador de productos */
@@ -175,7 +172,7 @@ body {
     height: 70px;
     display: flex;
     background-color: #fff;
-    border-radius: 10px;
+
 }
 
 .icon-close {
@@ -195,6 +192,7 @@ body {
     padding: 10px;
     justify-content: space-between;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    text-align: center;
 }
 
 .info-cart-product {
@@ -203,11 +201,22 @@ body {
     flex: 0.8;
 }
 
-.titulo-producto-carrito,
+.titulo-producto-carrito{
+    font-size: 15px;
+    font-weight: 700;
+    margin: 1em;
+}
+
+
 .precio-producto-carrito,
 .cantidad-producto-carrito {
     font-size: 20px;
     font-weight: 700;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 15px 0;
+    gap: 20px;
 }
 
 .cart-total {
@@ -227,11 +236,7 @@ body {
     font-weight: 900;
 }
 
-/* Imagenes generales */
 
-img {
-    max-width: 100%;
-}
 
 /* Header */
 
@@ -239,23 +244,30 @@ header {
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
+    border-bottom: o,5em;
+    border-color: black;
 }
 
 /* Main - Productos */
 
 .container-items {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    max-width: 100%; 
+    box-sizing: border-box;
 }
 
 .item {
-    border-radius: 10px;
-    background-color: rgb(255, 255, 255);
+        display: flex;
+        flex-direction: column;
+        border-radius: 10px;
+        background-color: rgb(255, 255, 255);
+        box-sizing: border-box; 
 }
 
 .item:hover {
@@ -281,16 +293,20 @@ header {
 }
 
 .info-product {
+    display: flex;
     padding: 15px 30px;
     line-height: 2;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    justify-content: space-between;
+    flex: 1;
 }
 
 .price {
     font-size: 18px;
     font-weight: 900;
+    margin-top: auto;
 }
 
 .info-product button {
@@ -314,13 +330,16 @@ header {
     text-align: center;
 }
 
+
+
+
 /* Responsive */
 
 @media (max-width: 768px) {
 
     .carrusel {
-        width: 70%;
-        max-width: 70%;
+        width: 100%;
+        max-width: 100%;
     }
     .container-items {
         grid-template-columns: repeat(2, 1fr);
@@ -344,8 +363,8 @@ header {
 @media (max-width: 480px) {
 
     .carrusel {
-        width: 90%;
-        max-width: 90%;
+        width: 100%;
+        max-width: 100%;
     }
     
     .container-items {

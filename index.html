@@ -9,19 +9,21 @@
 </head>
 
 <body>
-    <header>
+
         <div class="container-icon">
+            <!-- Menú de icono -->
             <div class="icono-menu">
                 <img src="img/menu.png" alt="franquicias">
             </div>
-            <div class="menu-portada">
-                <span class="menu-span">Comprar</span>
-                <span class="menu-span">Contacto</span>
-                <span class="menu-span">Quienes Somos</span>
+            
+            <div class="busqueda-imput-box">
+                <input type="text" placeholder="  buscar">
+                <svg class="busqueda-icono" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
             </div>
+
+            <!-- Icono del carrito y contador -->
             <div class="container-cart-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="icon-cart">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-cart">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
                 </svg>
@@ -29,47 +31,43 @@
                     <span id="contador-productos">0</span>
                 </div>
             </div>
-
+    
+            <!-- Contenedor de productos del carrito -->
             <div class="container-cart-products hidden-cart">
                 <div class="row-product">
                     <div class="cart-product">
                         <div class="info-cart-product">
-                            <p class="titulo-producto-carrito">Tu carrito esta vacio</p>
-
-
+                            <p class="titulo-producto-carrito">Tu carrito está vacío</p>
                         </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="icon-close">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-close">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                         </svg>
                     </div>
                 </div>
-
+    
                 <div class="cart-total">
-                    <h3>total:</h3>
+                    <h3>Total:</h3>
                     <span class="total-pagar">$0</span>
                 </div>
             </div>
         </div>
-    </header>
 
-    <div class="portada">
-        <img class=img-portada src="img/logo-portada.png" alt="not foud">
-    </div>
+
+
+    <!-- ofertas -->
+
 
     <div class="carrusel">
         <div class="carrusel-grande">
             <img src="img/oferta-bbva.jpeg" alt="" class="carrusel-imagenes">
             <img src="img/oferta-macro.jpeg" alt="imagen2" class="carrusel-imagenes">
         </div>
-        <div class="puntos">
-            <li class="punto"></li>
-            <li class="punto"></li>
-        </div>
     </div>
 
+
+
+
     <!-- barra de busqueda rapida -->
-          <h2 class="categorias">Categorias</h2>
     <section class="categorias">
             <div class="categorias-item">
             <span class=>Perro</span>
@@ -221,7 +219,6 @@
             </div>
         </div>
     </div>
-        <!-- contenedor de los items -->
 
         <!-- footer-->
 
@@ -259,8 +256,6 @@
             </div>
 
         </footer>
-
-        <!-- footer-->
         <script src="js/main.js"></script>
         <script src="https://kit.fontawesome.com/e4f2f2ba40.js" crossorigin="anonymous"></script>
 </body>

@@ -4,22 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informacion de Productos</title>
-    <link rel="stylesheet" href="css/main.css">
+    <title>NeoZoo</title>
+    <link rel="stylesheet" href="css/info-product.css">
 </head>
 
 <body>
-    <header>
         <div class="container-icon">
             <div class="icono-menu">
                 <img src="img/menu.png" alt="franquicias">
             </div>
-            <div class="menu-portada">
-                <span class="menu-span">Comprar</span>
-                <span class="menu-span">Contacto</span>
-                <span class="menu-span">Quienes Somos</span>
-                <span class="menu-span">Asociate a club NeoZoo</span>
+
+            <div class="busqueda-imput-box">
+                <input type="text" placeholder="  buscar">
+                <svg class="busqueda-icono" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
             </div>
+
             <div class="container-cart-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="icon-cart">
@@ -30,7 +29,7 @@
                     <span id="contador-productos">0</span>
                 </div>
             </div>
-
+<!-- icono del carro -->
             <div class="container-cart-products hidden-cart">
                 <div class="row-product">
                     <div class="cart-product">
@@ -50,38 +49,99 @@
                 </div>
             </div>
         </div>
-    </header>
-<!-- info de productos-->
-<header> <h1>Logo</h1> </header>
-<div class="container-info-title">
-    <main>
-<div class="container-info-img">
-<img src="#" alt="imagen"/>
+
+    <!-- info de productos -->
+
+<header>
+    <h1>logo</h1>
+</header>
+
+<div class="container-title">cucha rotomoldeada</div>
+<main class="main">
+<div class="container-img">
+    <img src="img/cucha-rotomoldeada.webp" alt="img">
 </div>
 <div class="container-info-product">
-    <div class="container-info-price">
-    <span>95000</span>
+<div class="container-price">
+    <span>77000</span>
+    <i class="fa-solid fa-chevron-right"></i>
 </div>
-<div class="container-info-details">
+<!-- detalles -->
+<div class="container-details-products">
     <div class="form-group">
-        <label for="colour"></label>
-        <select name="colour" id="colour">
-            <option disable selected value=""></option>
-            <option value="rojo"></option>
-            <option value="blanco"></option>
-            <option value="azul"></option>
+        <!-- color -->
+        <label for="color">color</label>
+        <select name="color" id="">
+            <option disabled selected value="">Escoge una opcion</option>
+            <option value="color">rojo</option>
+            <option value="color">azul</option>
+            <option value="color">verde</option>
         </select>
+    </div>
+    <div class="form-group">
+        <!-- talle -->
+        <label for="talle">talle</label>
+        <select name="talle" id="">
+            <option disabled selected value="">Escoge una opcion</option>
+            <option value="talle">1</option>
+            <option value="talle">2</option>
+            <option value="talle">3</option>
+        </select>
+    </div>
+    <button class="btn-clean">limpiar</button>
+</div>
+
+<div class="container-add-cart">
+    <div class="container-quantity">
+        <input type="number" placeholder="1" value="1" min="1" class="input-quantity">
+        <div class="btn-increment-decrement">
+            <i class="fa-solid fa-chevron-up"></i>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+    </div>
+    <button class="btn-add-cart">añadir al carrito</button>
+</div>
+<div class="container-description">
+    <div class="title-description">
+        <h4>descripcion</h4>
+        <i class="fa-solid fa-chevron-down"></i>
+    </div>
+        <div class="text-description">
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime maiores nam assumenda, veniam inventore architecto exercitationem reprehenderit voluptatem hic debitis cum enim voluptate totam magnam mollitia voluptates non delectus error.</p>
+    </div>
+</div>
+<div class="container-additional-information">
+    <div class="title-additional-information">
+        <h4>informacion adicional</h4>
+        <i class="fa-solid fa-chevron-down"></i>
+    </div>
+    <div class="text-additional-information">
+        <p>----------</p>
     </div>
 
 </div>
+<div class="container-additional-information">
+    <div class="title-additional-information">
+        <h4>informacion adicional</h4>
+        <i class="fa-solid fa-chevron-down"></i>
+    </div>
+    <div class="text-additional-information">
+        <p>----------</p>
+    </div>
+    
 </div>
-
-    </main>
-
-    <footer>
-        <footer></footer>
-    </footer>
+<div class="container-additional-information">
+    <div class="title-additional-information">
+        <h4>informacion adicional</h4>
+        <i class="fa-solid fa-chevron-down"></i>
+    </div>
+    <div class="text-additional-information">
+        <p>----------</p>
+    </div>
+    
 </div>
+</div>
+</main>
 
 
 
@@ -91,51 +151,102 @@
 
 
 
-<!-- info de productos-->
 
 
-     <!-- footer-->
 
-     <footer class="footer">
-        <div class="container-footer">
-            <div class="container-row">
-                <div class="footer-links">
-                    <h4>compañia</h4>
-                    <ul>
-                        <li> <a href="#">Comprar</a></li>
-                        <li> <a href="#">Contacto</a></li>
-                        <li> <a href="#">Quienes somos</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>tienda</h4>
-                    <ul>
-                        <li> <a href="#">perro</a></li>
-                        <li> <a href="#">gato</a></li>
-                        <li> <a href="#">ave</a></li>
-                        <li> <a href="#">hamster</a></li>
-                        <li> <a href="#">otro</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>redes</h4>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    
+    <!-- contenedor de los recomendados -->
+
+    <div class="card-list-products">
+        <div class="item">
+            <figure>
+                <img class=img-item src="img/cucha-rotomoldeada.webp" alt="perrito">
+            </figure>
+            <div class="info-product">
+                <h2>cucha rotomoldeada termica</h2>
+                <p class="price">$70100</p>
+                <button onclick="window.location.href='tienda.html'" class="btn-add-cart">ver mas +</button>
+        
+
+            </div>
+        </div>
+        <div class="item">
+            <figure>
+                <img class=img-item src="img/cucha-rotomoldeada.webp" alt="perrito">
+            </figure>
+            <div class="info-product">
+                <h2>cucha rotomoldeada termica</h2>
+                <p class="price">$70100</p>
+                <button onclick="window.location.href='tienda.html'" class="btn-add-cart">ver mas +</button>
+        
+
+            </div>
+        </div>
+        <div class="item">
+            <figure>
+                <img class=img-item src="img/cucha-rotomoldeada.webp" alt="perrito">
+            </figure>
+            <div class="info-product">
+                <h2>cucha rotomoldeada termica</h2>
+                <p class="price">$70100</p>
+                <button onclick="window.location.href='tienda.html'" class="btn-add-cart">ver mas +</button>
+        
+
+            </div>
+        </div>
+        <div class="item">
+            <figure>
+                <img class=img-item src="img/cucha-rotomoldeada.webp" alt="perrito">
+            </figure>
+            <div class="info-product">
+                <h2>cucha rotomoldeada termica</h2>
+                <p class="price">$70100</p>
+                <button onclick="window.location.href='tienda.html'" class="btn-add-cart">ver mas +</button>
+        
+
+            </div>
+        </div>
+       
+    </div>
+
+        <!-- footer-->
+
+        <footer class="footer">
+            <div class="container-footer">
+                <div class="container-row">
+                    <div class="footer-links">
+                        <h4>compañia</h4>
+                        <ul>
+                            <li> <a href="#">Comprar</a></li>
+                            <li> <a href="#">Contacto</a></li>
+                            <li> <a href="#">Quienes somos</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links">
+                        <h4>tienda</h4>
+                        <ul>
+                            <li> <a href="#">perro</a></li>
+                            <li> <a href="#">gato</a></li>
+                            <li> <a href="#">ave</a></li>
+                            <li> <a href="#">hamster</a></li>
+                            <li> <a href="#">otro</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links">
+                        <h4>redes</h4>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        </div>
+            </div>
 
-    </footer>
-
-    <!-- footer-->
-        </div>
-        
-        <script src="https://kit.fontawesome.com/e4f2f2ba40.js" crossorigin="anonymous"></script>
+        </footer>
         <script src="js/main.js"></script>
+        <script src="js/info-product.js"></script> 
+        <script src="https://kit.fontawesome.com/e4f2f2ba40.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

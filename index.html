@@ -10,44 +10,25 @@
 
 <body>
 
-        <div class="container-icon">
+        <div class="header">
             <!-- Menú de icono -->
             <div class="icono-menu">
                 <img src="img/menu.png" alt="franquicias">
             </div>
             
-            <div class="busqueda-imput-box">
+            <div class="busqueda-input-box">
                 <input type="text" placeholder="  buscar">
                 <svg class="busqueda-icono" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
             </div>
 
             <!-- Icono del carrito y contador -->
-            <div class="container-cart-icon">
+            <div onclick="window.location.href='carrito.html'" class="container-cart-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-cart">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
                 </svg>
                 <div class="count-products">
                     <span id="contador-productos">0</span>
-                </div>
-            </div>
-    
-            <!-- Contenedor de productos del carrito -->
-            <div class="container-cart-products hidden-cart">
-                <div class="row-product">
-                    <div class="cart-product">
-                        <div class="info-cart-product">
-                            <p class="titulo-producto-carrito">Tu carrito está vacío</p>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-close">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                        </svg>
-                    </div>
-                </div>
-    
-                <div class="cart-total">
-                    <h3>Total:</h3>
-                    <span class="total-pagar">$0</span>
                 </div>
             </div>
         </div>
@@ -68,29 +49,48 @@
 
 
     <!-- barra de busqueda rapida -->
-    <section class="categorias">
-            <div class="categorias-item">
-            <span class=>Perro</span>
-            <img onclick="window.location.href='tienda.html'" src="img/perro-bar.png" alt="Perro">
+    <div class="menu">
+        <div class="menu-item">
+          Perros
+          <div class="submenu">
+            <a href="#">alimento</a>
+            <a href="#">correas</a>
+            <a href="#">juguetes</a>
+          </div>
         </div>
-        <div class="categorias-item">
-            <span>Gato</span>
-            <img onclick="window.location.href='tienda.html'" src="img/gato-bar.png" alt="Gato">
-        </div>
-        <div class="categorias-item">
-            <span>Ave</span>
-            <img onclick="window.location.href='tienda.html'" src="img/ave-bar.png" alt="Ave">
-        </div>
-        <div class="categorias-item">
-            <span>Hamster</span>
-            <img onclick="window.location.href='tienda.html'" src="img/hamster-bar.png" alt="Hamster">
-        </div>
-        <div class="categorias-item">
-            <span>Otros</span>
-            <img onclick="window.location.href='tienda.html'" src="img/otros-bar.png" alt="Otros">
-        </div>
-    </div>
-    </section>
+        <div class="menu-item">
+            Gatos
+            <div class="submenu">
+                <a href="#">alimento</a>
+                <a href="#">correas</a>
+                <a href="#">juguetes</a>
+              </div>
+          </div>
+          <div class="menu-item">
+            Aves
+            <div class="submenu">
+                <a href="#">alimento</a>
+                <a href="#">correas</a>
+                <a href="#">juguetes</a>
+              </div>
+          </div>
+          <div class="menu-item">
+            Hamster
+            <div class="submenu">
+                <a href="#">alimento</a>
+                <a href="#">correas</a>
+                <a href="#">juguetes</a>
+              </div>
+          </div>
+          <div class="menu-item">
+            Otros
+            <div class="submenu">
+              <a href="#">Comida</a>
+              <a href="#">Comida</a>
+              <a href="#">Comida</a>
+            </div>
+          </div>
+      </div>
     
     
     

@@ -1,0 +1,122 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    max-width: 100%;
+    font-family: 'ubuntu';
+    color: rgb(41, 41, 41);
+    background-color: rgb(255, 255, 255);
+}
+.container-carrito{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border: solid 1px;
+}
+.container-cards{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+    border: solid 0.5px;
+    flex:5;
+    height: 450px;
+    overflow: scroll;
+}
+
+.container-finalizar-compra{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+    border: solid 1px;
+    height: 450px;
+    flex:1;
+}
+.container-finalizar-compra h4{
+    text-align: center;
+    gap: 10px;
+    margin: 10px;
+}
+.total{
+    width: 100%;
+    margin-top: auto;
+}
+.total h2{
+    margin-top: auto;
+    margin-left: 5px;
+
+}
+
+.total button{
+    background: rgb(17, 96, 63);
+    color: blanchedalmond;
+    padding: 15px 10px;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+}
+
+
+.card-carrito{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: solid 1px;
+    padding: 10px;
+    margin: 20px;
+    border: solid 3px;
+    border-color: rgb(17, 96, 63);
+    border-radius: 10px;
+}
+.info-cards{
+    display: flex;
+    flex-direction: row;
+    border-bottom: solid 3px;
+    border-color: rgb(201, 201, 201);
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(201, 201, 201);
+}
+.info-products{
+    display: flex;
+    margin-left: 200px;
+}
+.info-quantity{
+    display: flex;
+    margin-left: 350px;
+}
+.info-price{
+    margin-left: 250px;
+}
+
+.card-carrito h2{
+    font-size: 30px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.card-carrito img{
+    width: 10%;
+    height: auto;
+    margin: 2px;
+}
+
+.card-carrito input{
+    margin-left: 30px;
+    width: 50px;
+    font-size: 14px;
+}
+
+.price-finaly{
+    display: flex;
+    font-size: 30px;
+    margin-left: auto;
+}
+
+
+
+

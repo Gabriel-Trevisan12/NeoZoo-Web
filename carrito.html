@@ -16,10 +16,14 @@
             <img src="img/menu.png" alt="franquicias">
         </div>
         
-        <div class="busqueda-input-box">
-            <input type="text" placeholder="  buscar">
-            <svg class="busqueda-icono" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
-        </div>
+        <form class="busqueda-input-box" method="POST" action="busqueda.php">
+            <input type="text" id="busqueda" name="busqueda" placeholder="Buscar..." required>
+            <button type="submit" class="busqueda-icono">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+                </svg>
+            </button>
+        </form>
 
         <!-- Icono del carrito y contador -->
         <div class="container-cart-icon">
@@ -34,49 +38,23 @@
     </div>
 
 <div class="container-carrito">
+    
+        <div id="contenedorCarrito" class="container-cards">
 
-
-    <div class="container-cards">
-        <div class="info-cards">
-            <p class="info-products">Productos</p>
-            <p class="info-quantity">Cantidad</p>
-            <p class="info-price">Precio</p>
         </div>
+
         
-        <div class="card-carrito">
-            <img class=img-card src="img/bandeja-sanitaria.webp" alt="perrito">
-            <h2>Bandeja sanitaria toni pets mediana</h2>
-            <input  type="number" placeholder="1" value="1" min="1" class="input-card">
-            <p class="price-finaly">$65000</p>
-        </div>
-        <div class="card-carrito">
-            <img class=img-card src="img/bandeja-sanitaria.webp" alt="perrito">
-            <h2>Bandeja sanitaria toni pets mediana</h2>
-            <input  type="number" placeholder="1" value="1" min="1" class="input-card">
-            <p class="price-finaly">$65000</p>
-        </div>
-        <div class="card-carrito">
-            <img class=img-card src="img/bandeja-sanitaria.webp" alt="perrito">
-            <h2>Bandeja sanitaria toni pets mediana</h2>
-            <input  type="number" placeholder="1" value="1" min="1" class="input-card">
-            <p class="price-finaly">$65000</p>
-        </div>
-        <div class="card-carrito">
-            <img class=img-card src="img/bandeja-sanitaria.webp" alt="perrito">
-            <h2>Bandeja sanitaria toni pets mediana</h2>
-            <input  type="number" placeholder="1" value="1" min="1" class="input-card">
-            <p class="price-finaly">$65000</p>
-        </div>
 
-        </div>
+        
 
         <div class="container-finalizar-compra">
             <h4>Finalizar Compra</h4>
             <div class="total">
-            <h2>Total:</h2>
-            <button>Enviar Pedido</button>
+                <h2>Total: $<span id="totalAmount">0</span></h2>
+                <button id="enviarPedido">Enviar Pedido</button>
             </div>
         </div>
+        
     </div>
 
 
@@ -117,7 +95,9 @@
             </div>
 
         </footer>
-
+        
+        <script src="js/obtener-productos.js"></SCript>
+        <script src="js/carrito.js"></script>
         <script src="https://kit.fontawesome.com/e4f2f2ba40.js" crossorigin="anonymous"></script>
 </body>
 

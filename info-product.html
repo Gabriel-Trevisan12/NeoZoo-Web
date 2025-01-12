@@ -15,10 +15,14 @@
             <img src="img/menu.png" alt="franquicias">
         </div>
         
-        <div class="busqueda-input-box">
-            <input type="text" placeholder="  buscar">
-            <svg class="busqueda-icono" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
-        </div>
+        <form class="busqueda-input-box" method="POST" action="busqueda.php">
+            <input type="text" id="busqueda" name="busqueda" placeholder="Buscar..." required>
+            <button type="submit" class="busqueda-icono">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+                </svg>
+            </button>
+        </form>
 
         <!-- Icono del carrito y contador -->
         <div onclick="window.location.href='carrito.html'" class="container-cart-icon">
@@ -33,63 +37,8 @@
     </div>
 
     <!-- info de productos -->
+<div id="infoDinamico" class="info-product-dinamico"></div>
 
-<div class="container-title">cucha rotomoldeada</div>
-<main class="main">
-<div class="container-img">
-    <img src="img/cucha-rotomoldeada.webp" alt="img">
-</div>
-<div class="container-info-product">
-<div class="container-price">
-    <span>77000</span>
-    <i class="fa-solid fa-chevron-right"></i>
-</div>
-<!-- detalles -->
-<div class="container-details-products">
-    <div class="form-group">
-        <!-- color -->
-        <label for="color">color</label>
-        <select name="color" id="">
-            <option disabled selected value="">Escoge una opcion</option>
-            <option value="color">rojo</option>
-            <option value="color">azul</option>
-            <option value="color">verde</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <!-- talle -->
-        <label for="talle">talle</label>
-        <select name="talle" id="">
-            <option disabled selected value="">Escoge una opcion</option>
-            <option value="talle">1</option>
-            <option value="talle">2</option>
-            <option value="talle">3</option>
-        </select>
-    </div>
-    <button class="btn-clean">limpiar</button>
-</div>
-
-<div class="container-add-cart">
-    <div class="container-quantity">
-        <input type="number" placeholder="1" value="1" min="1" class="input-quantity">
-        <div class="btn-increment-decrement">
-            <i class="fa-solid fa-chevron-up" id="increment"></i>
-            <i class="fa-solid fa-chevron-down" id="decrement"></i>
-        </div>
-    </div>
-    <button class="btn-add-cart">añadir al carrito</button>
-</div>
-<div class="container-description">
-    <div class="title-description">
-        <h4>descripcion</h4>
-        <i class="fa-solid fa-chevron-down"></i>
-    </div>
-        <div class="text-description">
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime maiores nam assumenda, veniam inventore architecto exercitationem reprehenderit voluptatem hic debitis cum enim voluptate totam magnam mollitia voluptates non delectus error.</p>
-    </div>
-</div>
-</div>
-</main>
 
 
 
@@ -194,8 +143,9 @@
             </div>
 
         </footer>
+        <script src="js/obtener-productos.js"></script>
         <script src="js/main.js"></script>
-        <script src="js/info-product.js"></script> 
+        <!-- <script src="js/info-product.js"></script> -->
         <script src="https://kit.fontawesome.com/e4f2f2ba40.js" crossorigin="anonymous"></script>
 </body>
 

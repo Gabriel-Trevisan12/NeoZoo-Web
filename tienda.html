@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -15,10 +16,15 @@
             <img src="img/menu.png" alt="franquicias">
         </div>
         
-        <div class="busqueda-input-box">
-            <input type="text" placeholder="  buscar">
-            <svg class="busqueda-icono" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
-        </div>
+        <form class="busqueda-input-box">
+          <input type="text" id="busqueda" name="busqueda" placeholder="Buscar...">
+          <button type="button" class="busqueda-icono">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                  <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+              </svg>
+          </button>
+      </form>
+      
 
         <!-- Icono del carrito y contador -->
         <div onclick="window.location.href='carrito.html'" class="container-cart-icon">
@@ -76,118 +82,10 @@
           </div>
       </div>
 
-    <div class="container-items">
-        <div class="item">
-            <figure>
-                <img class=img-item src="img/bandeja-sanitaria.webp" alt="perrito">
-            </figure>
-            <div class="info-product">
-                <h2>bandeja sanitaria toni pets mediana</h2>
-                <p class="price">$65000</p>
-                <button Class="btn-add-cart">Añadir al carrito</button>
-                <button onclick="window.location.href='info-product.html'" class="btn-add-cart">info</button>
-            </div>
-        </div>
-        <div class="item">
-            <figure>
-                <img class=img-item src="img/cucha-rotomoldeada.webp" alt="perrito">
-            </figure>
-            <div class="info-product">
-                <h2>cucha rotomoldeada termica</h2>
-                <p class="price">$70100</p>
-                <button Class="btn-add-cart">Añadir al carrito</button>
-                <button onclick="window.location.href='info-product.html'" class="btn-add-cart">info</button>
-            </div>
-        </div>
-        <div class="item">
-            <figure>
-                <img class=img-item src="img/cucha-rotomoldeada.webp" alt="perrito">
-            </figure>
-            <div class="info-product">
-                <h2>cucha rotomoldeada termica</h2>
-                <p class="price">$70100</p>
-                <button Class="btn-add-cart">Añadir al carrito</button>
-                <button onclick="window.location.href='info-product.html'" class="btn-add-cart">info</button>
-            </div>
-        </div>
-        <div class="item">
-            <figure>
-                <img class=img-item src="img/cucha-rotomoldeada.webp" alt="perrito">
-            </figure>
-            <div class="info-product">
-                <h2>cucha rotomoldeada termica</h2>
-                <p class="price">$70100</p>
-                <button Class="btn-add-cart">Añadir al carrito</button>
-                <button onclick="window.location.href='info-product.html'" class="btn-add-cart">info</button>
-            </div>
-        </div>
-        <div class="item">
-            <figure>
-                <img class=img-item src="img/cucha-rotomoldeada.webp" alt="perrito">
-            </figure>
-            <div class="info-product">
-                <h2>cucha rotomoldeada termica</h2>
-                <p class="price">$70100</p>
-                <button Class="btn-add-cart">Añadir al carrito</button>
-                <button onclick="window.location.href='info-product.html'" class="btn-add-cart">info</button>
-            </div>
-        </div>
-        <div class="item">
-            <figure>
-                <img class=img-item src="img/cucha-rotomoldeada.webp" alt="perrito">
-            </figure>
-            <div class="info-product">
-                <h2>cucha rotomoldeada termica</h2>
-                <p class="price">$70100</p>
-                <button Class="btn-add-cart">Añadir al carrito</button>
-                <button onclick="window.location.href='info-product.html'" class="btn-add-cart">info</button>
-            </div>
-        </div>
-        <div class="item">
-            <figure>
-                <img class=img-item src="img/old-prince-cordero.webp" alt="perrito">
-            </figure>
-            <div class="info-product">
-                <h2>Alimento para Perro old prince</h2>
-                <p class="price">$58700</p>
-                <button Class="btn-add-cart">Añadir al carrito</button>
-                <button onclick="window.location.href='info-product.html'" class="btn-add-cart">info</button>
-            </div>
-        </div>
-        <div class="item">
-            <figure>
-                <img class=img-item src="img/bebedero.avif" alt="perrito">
-            </figure>
-            <div class="info-product">
-                <h2>Bebedero</h2>
-                <p class="price">$11200</p>
-                <button Class="btn-add-cart">Añadir al carrito</button>
-                <button onclick="window.location.href='info-product.html'" class="btn-add-cart">info</button>
-            </div>
-        </div>
-        <div class="item">
-            <figure>
-                <img class=img-item src="img/creoquetas.avif" alt="perrito">
-            </figure>
-            <div class="info-product">
-                <h2>croquetas para Perro</h2>
-                <p class="price">$2000</p>
-                <button Class="btn-add-cart">Añadir al carrito</button>
-                <button onclick="window.location.href='info-product.html'" class="btn-add-cart">info</button>
-            </div>
-        </div>
-        <div class="item">
-            <figure>
-                <img class=img-item src="img/peladora-oveja-negra.webp" alt="perrito">
-            </figure>
-            <div class="info-product">
-                <h2>Peladora oveja negra a66</h2>
-                <p class="price">$125800</p>
-                <button Class="btn-add-cart">Añadir al carrito</button>
-                <button onclick="window.location.href='info-product.html'" class="btn-add-cart">info</button>
-            </div>
-        </div>
-    </div>
+      <div id="contenedorDinamico" class="container-items">
+
+      </div>
+
          <!-- footer-->
 
          <footer class="footer">
@@ -226,7 +124,8 @@
         </footer>
 
         <!-- footer-->
-        <script src="js/main.js"></script>
+         <script src="js/obtener-productos.js"></script>
+         <script src="js/main.js"></script>
         <script src="https://kit.fontawesome.com/e4f2f2ba40.js" crossorigin="anonymous"></script>
 </body>
 

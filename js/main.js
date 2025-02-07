@@ -1,27 +1,25 @@
 
-/* js del carrusel  */
+const container = document.querySelector('.card-list-products-ofertas');
+const leftArrow = document.getElementById('izq');
+const rightArrow = document.getElementById('der');
 
-
-const grande = document.querySelector('.carrusel-grande');
-const punto = document.querySelectorAll('.punto');
-
-punto.forEach((cadaPunto, i) => {
-    punto[i].addEventListener('click', () => {
-        let posicion = i;
-        let operacion = posicion * -50;
-
-        
-        grande.style.transform = `translateX(${operacion}%)`;
-
-       
-        punto.forEach((cadaPunto, i) => {
-            punto[i].classList.remove('activo');
-        });
-
-        
-        punto[i].classList.add('activo');
-    });
+// Evento para mover hacia la izquierda
+leftArrow.addEventListener('click', () => {
+  container.scrollBy({
+    left: -200, // Cantidad de desplazamiento hacia la izquierda
+    behavior: 'smooth', // Movimiento suave
+  });
 });
+
+// Evento para mover hacia la derecha
+rightArrow.addEventListener('click', () => {
+  container.scrollBy({
+    left: 200, // Cantidad de desplazamiento hacia la derecha
+    behavior: 'smooth', // Movimiento suave
+  });
+});
+
+
 
 // sub menus
 
@@ -44,31 +42,56 @@ document.querySelectorAll('.menu-item').forEach(item => {
 
 // carrito
 
-function agregarAlCarrito(producto) {
+function actualizarContadorCarrito() {
   const memoria = JSON.parse(localStorage.getItem("productos")) || [];
-  console.log("Productos en memoria:", memoria);
+  const totalProductos = memoria.reduce((total, item) => total + item.cantidad, 0);
 
-  // Buscar si el producto ya está en el carrito
-  const indiceProducto = memoria.findIndex((item) => item.id === producto.id);
-
-  if (indiceProducto === -1) {
-    // Si el producto no está en el carrito, lo añadimos con cantidad 1
-    const nuevoProducto = getNuevoProductoParaMemoria(producto);
-    memoria.push(nuevoProducto);
-  } else {
-    // Si el producto ya está, incrementamos su cantidad
-    memoria[indiceProducto].cantidad += 1;
+  const contadorCarrito = document.getElementById("contador-productos");
+  if (contadorCarrito) {
+      contadorCarrito.textContent = totalProductos;
+      contadorCarrito.style.display = totalProductos > 0 ? "block" : "none"; // Ocultar si está vacío
+  }
+}
+function agregarAlCarrito(producto) {
+  if (!producto || !producto.id || !producto.nombre || !producto.precio || !producto.imagen) {
+      console.error("Producto inválido:", producto);
+      return;
   }
 
-  // Guardar la memoria actualizada en el localStorage
+  let memoria = JSON.parse(localStorage.getItem("productos")) || [];
+
+  let itemExistente = memoria.find(item => item.id === producto.id);
+
+  if (itemExistente) {
+      // Si ya está en el carrito, aumentar la cantidad
+      itemExistente.cantidad += 1;
+  } else {
+      // Si no está, agregarlo con su información de oferta
+      const precio = parseFloat(producto.precio);
+      const oferta = parseFloat(producto.oferta) || 0;
+      const precioFinal = oferta ? precio * (1 - (oferta / 100)) : precio; // Calcular precio con descuento
+
+      memoria.push({
+          id: producto.id,
+          nombre: producto.nombre,
+          imagen: producto.imagen,
+          cantidad: 1,
+          precioOriginal: precio, // Guardamos el precio original
+          oferta: oferta, // Porcentaje de oferta
+          precioFinal: precioFinal // Guardamos el precio con descuento
+      });
+  }
+
   localStorage.setItem("productos", JSON.stringify(memoria));
-  console.log("Carrito actualizado:", memoria);
+  console.log("Carrito actualizado con oferta:", memoria);
+
+  // 🔹 Actualizar el contador después de agregar
+  actualizarContadorCarrito();
 }
 
-function getNuevoProductoParaMemoria(producto) {
-  // Crear una copia del producto y agregar la cantidad
-  return { ...producto, cantidad: 1 };
-}
+
+
+
 
 
 

@@ -1,44 +1,77 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+header('Content-Type: application/json');
+
 include 'includes/conexion.php';
 
-// Verificar si se proporcionó un ID en la URL
-if (isset($_GET['id'])) {
-    $id = intval($_GET['id']); // Convertir a entero para evitar inyección SQL
+// Variables para filtros
+$categoria = isset($_GET['categoria']) && $_GET['categoria'] !== "" ? intval($_GET['categoria']) : null;
+$subcategoria = isset($_GET['subcategoria']) && $_GET['subcategoria'] !== "" ? intval($_GET['subcategoria']) : null;
+$marca = isset($_GET['marca']) && $_GET['marca'] !== "" ? intval($_GET['marca']) : null;
+$id = isset($_GET['id']) && $_GET['id'] !== "" ? intval($_GET['id']) : null;
 
-    // Consulta para un producto específico
-    $sql = "SELECT id, nombre, precio, stock, descripcion, talle, color, imagen, categoria FROM productos WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id); // Vincular el parámetro ID
-    $stmt->execute();
-    $result = $stmt->get_result();
+$sql = "SELECT 
+            id AS id, 
+            nombre, 
+            descripcion, 
+            stock, 
+            precio, 
+            imagen, 
+            id_categoria AS categoria, 
+            id_subcategoria AS subcategoria, 
+            id_marca AS marca,
+            oferta
+        FROM productos 
+        WHERE 1=1";
 
-    if ($result->num_rows > 0) {
-        $producto = $result->fetch_assoc(); // Obtener el producto como un array asociativo
-        echo json_encode($producto); // Retornar el producto en formato JSON
-    } else {
-        echo json_encode(["error" => "Producto no encontrado."]); // Manejar error si no existe el producto
-    }
+$params = [];
+$types = "";
 
-    $stmt->close();
+// Si se busca un producto específico por ID
+if ($id !== null) {
+    $sql .= " AND id = ?";
+    $params[] = $id;
+    $types .= "i"; 
 } else {
-    // Consulta para obtener todos los productos
-    $sql = "SELECT id, nombre, precio, stock, descripcion, talle, color, imagen, categoria FROM productos";
-    $result = $conn->query($sql);
-
-    $productos = array();
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $productos[] = $row; // Agregar cada producto al array
-        }
+    // Filtrar por categoría
+    if ($categoria !== null) {
+        $sql .= " AND id_categoria = ?";
+        $params[] = $categoria;
+        $types .= "i";
     }
 
-    echo json_encode($productos); // Retornar todos los productos en formato JSON
+    // Filtrar por subcategoría
+    if ($subcategoria !== null) {
+        $sql .= " AND id_subcategoria = ?";
+        $params[] = $subcategoria;
+        $types .= "i";
+    }
+
+    // Filtrar por marca
+    if ($marca !== null) {
+        $sql .= " AND id_marca = ?";
+        $params[] = $marca;
+        $types .= "i";
+    }
 }
 
+$stmt = $conn->prepare($sql);
+if (!empty($params)) {
+    $stmt->bind_param($types, ...$params);
+}
+$stmt->execute();
+$result = $stmt->get_result();
+
+$productos = [];
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $productos[] = $row;
+    }
+}
+
+echo json_encode($productos);
+$stmt->close();
 $conn->close();
 ?>
-
-
-
-
-

@@ -2,7 +2,10 @@ body {
     font-family: Arial, sans-serif;
     margin: 20px;
 }
-
+.main{
+    display: flex;
+    justify-content: space-between;
+}
 .form-container {
     max-width: 600px;
     display: block;
@@ -13,8 +16,32 @@ body {
     flex: 1;
     
 }
+.form-container-portada {
+    max-width: 600px;
+    display: block;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #ffffff;
+    flex: 1;
+    
+}
+.tabla{
+    display: block;
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #ffffff;
+}
 
-
+.filas-tabla{
+    padding: 20px;
+}
+.celdas-tablas{
+   height: 2px;
+   overflow: hidden;
+   
+}
 .form-group {
     margin-bottom: 15px;
 }

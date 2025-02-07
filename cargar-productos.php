@@ -1,148 +1,143 @@
 <?php
-include 'includes/conexion.php';
+include 'includes/conexion.php'; // Conexión a la base de datos
 
-// Función para verificar si un color ya existe y obtener su ID
-function getColorId($colorName, $conn) {
-    $sql = "SELECT id FROM colores WHERE nombre = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute([$colorName]);
-    $color = $stmt->fetch();
-    if ($color) {
-        return $color['id']; // Retorna el ID del color si existe
-    } else {
-        // Si no existe, lo insertamos
-        $insertSQL = "INSERT INTO colores (nombre) VALUES (?)";
-        $stmtInsert = $conn->prepare($insertSQL);
-        $stmtInsert->execute([$colorName]);
-        return mysqli_insert_id($conn); // Usamos mysqli_insert_id aquí
-    }
-}
-
-// Función para verificar si un talle ya existe y obtener su ID
-function getTalleId($talleName, $conn) {
-    $sql = "SELECT id FROM talles WHERE nombre = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute([$talleName]);
-    $talle = $stmt->fetch();
-    if ($talle) {
-        return $talle['id']; // Retorna el ID del talle si existe
-    } else {
-        // Si no existe, lo insertamos
-        $insertSQL = "INSERT INTO talles (nombre) VALUES (?)";
-        $stmtInsert = $conn->prepare($insertSQL);
-        $stmtInsert->execute([$talleName]);
-        return mysqli_insert_id($conn); // Usamos mysqli_insert_id aquí
-    }
-}
-
-// Si se envió el formulario para agregar producto
-if (isset($_POST['submitAdd'])) {
-    $name = $_POST['name'];
-    $price = $_POST['price'];
-    $stock = $_POST['stock'];
-    $description = $_POST['description'];
-    $size = $_POST['size'];
-    $color = $_POST['color'];
-    $categoria = $_POST['categoria'];
-
-    // Procesar la imagen
+// Función para agregar un producto
+function agregarProducto($data, $file) {
+    global $conn;
+    
+    $name = $data['name'];
+    $price = $data['price'];
+    $stock = $data['stock'];
+    $description = $data['description'];
+    $categoria = $data['categoria'];
+    $subcategoria = $data['subcategoria'];
+    $marca = $data['marca'];  
     $imagePath = null;
-    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+
+    // Procesar imagen
+    if (isset($file['image']) && $file['image']['error'] === UPLOAD_ERR_OK) {
         $uploadDir = 'uploads/';
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0777, true);
         }
-        $fileName = uniqid() . '-' . basename($_FILES['image']['name']);
+        $fileName = uniqid() . '-' . basename($file['image']['name']);
         $imagePath = $uploadDir . $fileName;
 
-        if (!move_uploaded_file($_FILES['image']['tmp_name'], $imagePath)) {
+        if (!move_uploaded_file($file['image']['tmp_name'], $imagePath)) {
             echo "Error al subir la imagen.";
             exit;
         }
     }
 
-    // Insertar el producto
-    $sql = "INSERT INTO productos (nombre, precio, stock, descripcion, talle, color, imagen, categoria) 
+    // Insertar el producto en la base de datos
+    $sql = "INSERT INTO productos (nombre, precio, stock, descripcion, imagen, id_categoria, id_subcategoria, id_marca) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$name, $price, $stock, $description, $size, $color, $imagePath, $categoria]);
+    $stmt->bind_param("sisssiii", $name, $price, $stock, $description, $imagePath, $categoria, $subcategoria, $marca);
 
-    // Obtener el ID del producto recién insertado
-    $productId = mysqli_insert_id($conn); // Usamos mysqli_insert_id aquí
-
-    // Verificar e insertar el color
-    $colorId = getColorId($color, $conn);
-
-    // Verificar e insertar el talle
-    $sizeId = getTalleId($size, $conn);
-
-    // Asociar color y talle con el producto
-    $sql_color = "INSERT INTO producto_colores (producto_id, color_id) VALUES (?, ?)";
-    $stmt_color = $conn->prepare($sql_color);
-    $stmt_color->execute([$productId, $colorId]);
-
-    $sql_talle = "INSERT INTO producto_talles (producto_id, talle_id) VALUES (?, ?)";
-    $stmt_talle = $conn->prepare($sql_talle);
-    $stmt_talle->execute([$productId, $sizeId]);
-
-    echo "Producto agregado con éxito.";
-}
-
-// Si se envió el formulario para actualizar producto
-if (isset($_POST['submitUpdate'])) {
-    $id = $_POST['id'];
-    $name = $_POST['nombre'];
-    $price = $_POST['precio'];
-    $stock = $_POST['stockk'];
-    $description = $_POST['descripcion'];
-    $size = $_POST['talle'];
-    $color = $_POST['colorr'];
-    $categoria = $_POST['categoriaa'];
-
-    // Procesar la imagen (si se cambia)
-    $imagePath = null;
-    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = 'uploads/';
-        if (!is_dir($uploadDir)) {
-            mkdir($uploadDir, 0777, true);
-        }
-        $fileName = uniqid() . '-' . basename($_FILES['image']['name']);
-        $imagePath = $uploadDir . $fileName;
-
-        if (!move_uploaded_file($_FILES['image']['tmp_name'], $imagePath)) {
-            echo "Error al subir la imagen.";
-            exit;
-        }
+    if ($stmt->execute()) {
+        echo "Producto agregado con éxito.";
+    } else {
+        echo "Error al agregar producto: " . $conn->error;
     }
-
-    // Actualizar el producto
-    $sql = "UPDATE productos SET nombre = ?, precio = ?, stock = ?, descripcion = ?, talle = ?, color = ?, imagen = ?, categoria = ? WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute([$name, $price, $stock, $description, $size, $color, $imagePath, $categoria, $id]);
-
-    // Eliminar las relaciones previas
-    $conn->exec("DELETE FROM producto_colores WHERE producto_id = $id");
-    $conn->exec("DELETE FROM producto_talles WHERE producto_id = $id");
-
-    // Verificar e insertar el color
-    $colorId = getColorId($color, $conn);
-
-    // Verificar e insertar el talle
-    $sizeId = getTalleId($size, $conn);
-
-    // Asociar color y talle con el producto
-    $sql_color = "INSERT INTO producto_colores (producto_id, color_id) VALUES (?, ?)";
-    $stmt_color = $conn->prepare($sql_color);
-    $stmt_color->execute([$id, $colorId]);
-
-    $sql_talle = "INSERT INTO producto_talles (producto_id, talle_id) VALUES (?, ?)";
-    $stmt_talle = $conn->prepare($sql_talle);
-    $stmt_talle->execute([$id, $sizeId]);
-
-    echo "Producto actualizado con éxito.";
 }
 
+// Función para aplicar una oferta
+function aplicarOferta($oferta, $marca_id) {
+    global $conn;
+
+    if ($oferta >= 0 && $oferta <= 100) {
+        $sql = "UPDATE productos SET oferta = ? WHERE id_marca = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("di", $oferta, $marca_id);
+
+        if ($stmt->execute()) {
+            echo "Oferta aplicada correctamente.";
+        } else {
+            echo "Error al aplicar la oferta: " . $conn->error;
+        }
+    } else {
+        echo "Porcentaje de oferta no válido. Debe estar entre 0 y 100.";
+    }
+}
+
+// Función para incrementar precios por marca
+function incrementarPrecio($porcentaje, $marca_id) {
+    global $conn;
+
+    if ($porcentaje > 0) {
+        // Primera consulta: Actualizar precios según el porcentaje
+        $sql = "UPDATE productos SET precio = precio * ? WHERE id_categoria = ?";
+        $stmt = $conn->prepare($sql);
+
+        if ($stmt === false) {
+            die('Error al preparar la consulta: ' . $conn->error);
+        }
+
+        $stmt->bind_param("di", $porcentaje, $idCategoria); // Se asume que $idCategoria está definido en alguna parte
+
+        if ($stmt->execute()) {
+            echo "Precios por categoría actualizados correctamente.<br>";
+        } else {
+            echo "Error al actualizar precios por categoría: " . $conn->error . "<br>";
+        }
+
+        // Segunda consulta: Actualizar precios de productos según marca
+        $sql_aumento = "UPDATE productos SET precio = precio * (1 + ? / 100) WHERE id_marca = ?";
+        $stmt_aumento = $conn->prepare($sql_aumento);
+
+        if ($stmt_aumento === false) {
+            die('Error al preparar la consulta para la marca: ' . $conn->error);
+        }
+
+        $stmt_aumento->bind_param("di", $porcentaje, $marca_id);
+
+        if ($stmt_aumento->execute()) {
+            echo "Precios por marca actualizados correctamente.";
+        } else {
+            echo "Error al actualizar precios por marca: " . $conn->error;
+        }
+    } else {
+        echo "Porcentaje de incremento no válido.";
+    }
+}
+
+
+// Función para actualizar el precio manualmente
+function actualizarPrecio($productId, $newPrice) {
+    global $conn;
+
+    $sql = "UPDATE productos SET precio = ? WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("di", $newPrice, $productId);
+
+    if ($stmt->execute()) {
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false, 'error' => $conn->error]);
+    }
+}
+
+// Lógica de formulario
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['submitAdd'])) {
+        agregarProducto($_POST, $_FILES);
+    } elseif (isset($_POST['submitOffer'])) {
+        aplicarOferta($_POST['oferta'], $_POST['marca_id']);
+    } elseif (isset($_POST['submitIncrease'])) {
+        incrementarPrecio($_POST['porcentaje'], $_POST['marca_id']);
+    }
+}
+
+// Lógica para recibir y actualizar el precio a través de AJAX (en formato JSON)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['productId']) && isset($_POST['newPrice'])) {
+    $productId = $_POST['productId'];
+    $newPrice = $_POST['newPrice'];
+
+    actualizarPrecio($productId, $newPrice);
+}
 ?>
+
 
 <!-- Parte HTML -->
 <!DOCTYPE html>
@@ -155,8 +150,9 @@ if (isset($_POST['submitUpdate'])) {
 </head>
 <body>
 <div class="main">
-    <!-- Formulario para agregar o actualizar producto -->
+    <!-- Formulario para agregar producto -->
     <form id="productForm" class="form-container" method="POST" enctype="multipart/form-data">
+        <h2>Agregar Producto</h2>
         <div class="form-group">
             <label for="name">Nombre del Producto</label>
             <input type="text" id="name" name="name" required>
@@ -174,74 +170,253 @@ if (isset($_POST['submitUpdate'])) {
             <textarea id="description" name="description" rows="4" required></textarea>
         </div>
         <div class="form-group">
-            <label for="size">Talle</label>
-            <input type="text" id="size" name="size" placeholder="Ingresa el talle" required>
+            <label for="categoria">Categoría</label>
+            <select id="categoria" name="categoria" required onchange="cargarSubcategorias()">
+                <option value="">Selecciona una categoría</option>
+                <?php
+                // Consulta para obtener las categorías
+                $categorias = $conn->query("SELECT id_categoria, nombre_categoria FROM categorias");
+                while ($categoria = $categorias->fetch_assoc()) {
+                    echo "<option value='{$categoria['id_categoria']}'>{$categoria['nombre_categoria']}</option>";
+                }
+                ?>
+            </select>
         </div>
         <div class="form-group">
-            <label for="color">Color</label>
-            <input type="text" id="color" name="color" placeholder="Ingresa el color" required>
+            <label for="subcategoria">Subcategoría</label>
+            <select id="subcategoria" name="subcategoria" required>
+                <option value="">Selecciona una subcategoría</option>
+            </select>
         </div>
+        <script>
+           function cargarSubcategorias() {
+    const categoriaId = document.getElementById("categoria").value;
+    const subcategoriaSelect = document.getElementById("subcategoria");
+
+    // Reiniciar las opciones
+    subcategoriaSelect.innerHTML = "<option value=''>Selecciona una subcategoría</option>";
+
+    if (categoriaId) {
+        // Hacer la solicitud al archivo subcategorias.php pasando el id de la categoría
+        fetch(`subcategorias.php?categoria_id=${categoriaId}`)
+            .then(response => response.json())
+            .then(data => {
+                // Verificar si hay subcategorías
+                if (data.length > 0) {
+                    data.forEach(subcategoria => {
+                        const option = document.createElement("option");
+                        option.value = subcategoria.id_subcategoria;  // Acceder al id_subcategoria
+                        option.textContent = subcategoria.nombre_subcategoria;  // Acceder al nombre_subcategoria
+                        subcategoriaSelect.appendChild(option);
+                    });
+                } else {
+                    const option = document.createElement("option");
+                    option.value = "";
+                    option.textContent = "No hay subcategorías disponibles";
+                    subcategoriaSelect.appendChild(option);
+                }
+            })
+            .catch(error => console.error("Error al cargar subcategorías:", error));
+    }
+}
+
+
+
+
+        </script>
         <div class="form-group">
-            <label for="categoria">Categoria</label>
-            <input type="text" id="categoria" name="categoria" required>
+            <label for="marca">Marca</label>
+            <select id="marca" name="marca" required>
+                <option value="">Selecciona una marca</option>
+                <?php
+                // Consulta para obtener las marcas
+                $marcas = $conn->query("SELECT id_marca, nombre_marca FROM marcas");
+                while ($marca = $marcas->fetch_assoc()) {
+                    echo "<option value='{$marca['id_marca']}'>{$marca['nombre_marca']}</option>";
+                }
+                ?>
+            </select>
         </div>
         <div class="form-group">
             <label for="image">Imagen</label>
             <input type="file" id="image" name="image" accept="image/*">
         </div>
         <button type="submit" name="submitAdd" class="btn-add">Agregar Producto</button>
-        <button type="submit" name="submitUpdate" class="btn-update">Actualizar Producto</button>
     </form>
 </div>
 
 <hr>
 
-<!-- Tabla de productos -->
-<h2>Productos en la Base de Datos</h2>
-<table border="1">
-    <thead>
+<!-- Formulario para aumentar precios -->
+<form id="increasePriceForm" class="form-container" method="POST">
+    <h2>Incrementar Precios</h2>
+    <div class="form-group">
+        <label for="porcentaje">Porcentaje de Incremento</label>
+        <input type="number" id="porcentaje" name="porcentaje" step="0.01" required>
+    </div>
+    <div class="form-group">
+        <label for="marca_id">Marca</label>
+        <select id="marca_id" name="marca_id" required>
+            <option value="">Selecciona una marca</option>
+            <?php 
+            $marcas = $conn->query("SELECT id_marca, nombre_marca FROM marcas");
+            while ($marca = $marcas->fetch_assoc()):
+            ?>
+                <option value="<?php echo $marca['id_marca']; ?>"><?php echo $marca['nombre_marca']; ?></option>
+            <?php endwhile; ?>
+        </select>
+    </div>
+    <button type="submit" name="submitIncrease" class="btn-increase">Incrementar Precios</button>
+</form>
+
+<!-- Formulario para aplicar oferta -->
+<form id="offerForm" class="form-container" method="POST">
+    <h2>Aplicar Oferta</h2>
+    <div class="form-group">
+        <label for="oferta">Porcentaje de Oferta (%)</label>
+        <input type="number" id="oferta" name="oferta" min="0" max="100" required>
+    </div>
+    <div class="form-group">
+        <label for="marca_id_oferta">Marca</label>
+        <select id="marca_id_oferta" name="marca_id" required>
+            <option value="">Selecciona una marca</option>
+            <?php
+            $marcas = $conn->query("SELECT id_marca, nombre_marca FROM marcas");
+            while ($marca = $marcas->fetch_assoc()) {
+                echo "<option value='{$marca['id_marca']}'>{$marca['nombre_marca']}</option>";
+            }
+            ?>
+        </select>
+    </div>
+    <button type="submit" name="submitOffer" class="btn-offer">Aplicar Oferta</button>
+    <!-- Botón para eliminar oferta -->
+    <button type="button" id="removeOfferButton" class="btn-remove-offer">Eliminar Oferta</button>
+</form>
+
+
+
+
+<script>
+document.getElementById("offerForm").addEventListener("submit", function(event) {
+    const oferta = document.getElementById("oferta").value;
+    const marca = document.getElementById("marca_id_oferta").value;
+    if (!oferta || !marca) {
+        alert("Por favor, selecciona una marca y un porcentaje válido.");
+        event.preventDefault();
+    }
+});
+</script>
+<h2>Subir Nueva Imagen de Oferta</h2>
+    <form action="includes/ofertas-portada.php" method="POST" enctype="multipart/form-data">
+        <input type="file" name="imagen" accept="image/*" required>
+        <button type="submit">Subir Imagen</button>
+    </form>
+    <?php
+$conexion = include 'includes/conexion.php';
+$resultado = $conexion->query("SELECT id_oferta, imagen FROM ofertas");
+
+echo "<h2>Galería de Ofertas</h2>";
+echo "<table border='1'>
         <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Stock</th>
-            <th>Descripción</th>
-            <th>Talle</th>
-            <th>Color</th>
-            <th>Categoría</th>
             <th>Imagen</th>
-            <th>Eliminar</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-            $result = $conn->query("SELECT * FROM productos");
-            if ($result): 
-                while ($producto = $result->fetch_assoc()): ?>
+            <th>Acciones</th>
+        </tr>";
+while ($row = $resultado->fetch_assoc()) {
+    echo "<tr>
+            <td><img src='" . str_replace('../', '', $row['imagen']) . "' width='150'></td>
+            <td>
+                <form action='includes/eliminar-imagen.php' method='POST' style='display:inline;'>
+                    <input type='hidden' name='id_oferta' value='{$row['id_oferta']}'>
+                    <button type='submit' name='eliminar'>Eliminar</button>
+                </form>
+            </td>
+          </tr>";
+}
+echo "</table>";
+?>
+
+<script>
+    document.querySelectorAll('.eliminar-imagen-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const idOferta = this.getAttribute('data-id_oferta');
+
+        if (confirm("¿Estás seguro de que quieres eliminar la imagen?")) {
+            fetch('include/eliminar-imagen.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `id_oferta=${idOferta}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    location.reload(); // Recargar la página para reflejar los cambios
+                } else {
+                    alert("Error al eliminar la imagen.");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    });
+});
+</script>
+
+    <hr>
+
+    <!-- Tabla de productos -->
+    <div class="tabla">
+        <h2>Productos en la Base de Datos</h2>
+        <table border="1" id="productTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th><input type="text" id="searchName" placeholder="Buscar nombre"></th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Descripción</th>
+                    <th>Categoría</th>
+                    <th>Subcategoría</th>
+                    <th><input type="text" id="searchBrand" placeholder="Buscar marca"></th>
+                    <th>Imagen</th>
+                    <th>Eliminar</th>
+                    <th>Oferta</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $result = $conn->query("SELECT productos.*, categorias.nombre_categoria, subcategorias.nombre_subcategoria, marcas.nombre_marca 
+                                        FROM productos
+                                        JOIN categorias ON productos.id_categoria = categorias.id_categoria
+                                        JOIN subcategorias ON productos.id_subcategoria = subcategorias.id_subcategoria
+                                        JOIN marcas ON productos.id_marca = marcas.id_marca");
+
+                while ($producto = $result->fetch_assoc()):
+                ?>
                     <tr>
                         <td><?php echo $producto['id']; ?></td>
                         <td><?php echo $producto['nombre']; ?></td>
-                        <td><?php echo $producto['precio']; ?></td>
+                        <td contenteditable="true" onblur="updatePrice(<?php echo $producto['id']; ?>, this)"><?php echo $producto['precio']; ?></td>
                         <td><?php echo $producto['stock']; ?></td>
                         <td><?php echo $producto['descripcion']; ?></td>
-                        <td><?php echo $producto['talle']; ?></td>
-                        <td><?php echo $producto['color']; ?></td>
-                        <td><?php echo $producto['categoria']; ?></td>
-                        <td><img src="<?php echo $producto['imagen']; ?>" alt="Imagen del producto" width="100"></td>
+                        <td><?php echo $producto['nombre_categoria']; ?></td>
+                        <td><?php echo $producto['nombre_subcategoria']; ?></td>
+                        <td><?php echo $producto['nombre_marca']; ?></td>
+                        <td><img src="<?php echo $producto['imagen']; ?>" width="100"></td>
+                        <td><button onclick="deleteProduct(<?php echo $producto['id']; ?>)">Eliminar</button></td>
                         <td>
-                            <form method="POST" action="">
-                                <input type="hidden" name="id" value="<?php echo $producto['id']; ?>">
-                                <button type="submit" name="submitDelete" class="btn-delete">Eliminar</button>
-                            </form>
+                            <input type="number" class="offer-percentage" value="<?php echo $producto['oferta']; ?>" style="width: 60px;" onblur="updateOffer(<?php echo $producto['id']; ?>, this)">
                         </td>
+
+                        
                     </tr>
                 <?php endwhile; ?>
-            <?php else: ?>
-                <tr>
-                    <td colspan="10">No se encontraron productos.</td>
-                </tr>
-            <?php endif; ?>
-    </tbody>
-</table>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="js/busqueda-login.js"></script>
 </body>
 </html>

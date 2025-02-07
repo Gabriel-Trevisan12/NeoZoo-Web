@@ -8,22 +8,29 @@
     padding: 0;
     box-sizing: border-box;
 }
-
-body {
+    .montserratfuente> {
+        font-family: "Montserrat", serif;
+        font-optical-sizing: auto;
+        font-weight: 100;
+        font-style: normal;
+      }
+      body {
+          font-family: "Montserrat", serif;
     max-width: 100%;
     margin: 0 auto;
     font-family: 'ubuntu';
     color: rgb(41, 41, 41);
     background-color: rgb(255, 255, 255);
 }
-img{
-    max-width: 100%;
-}
+
 .header {
     display: flex;
     justify-content: space-between;
     background-color: #fff;
     margin-bottom: 1em;
+}
+.icono-menu :hover{
+    cursor: pointer;
 }
 
 .container-title{
@@ -42,12 +49,17 @@ img{
 
 .container-img{
     flex: 1; 
+    position: relative;
     width: 100%; 
     background-color: #ffffff;
+    justify-content: center;
+    align-items: center;
 }
 .container-img img{
-    width: 80%;
-    height: auto;
+    width: 500px;
+    height: 500px;
+    margin: 20px;
+    padding: 20px;
 }
 
 .container-info-product{
@@ -187,11 +199,7 @@ img{
     
 }
 
-.container-related-products{
-    text-align: center;
-    margin-bottom: 15px;
 
-}
 .container-add-cart{
     display: flex;
     justify-content: space-between;
@@ -444,7 +452,136 @@ margin: 0 auto;
     color: #fff;
 }
 
-/* pagina de informacion de productos */
+/* Ajustes para el contenedor de las ofertas */
+.ofertas-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+    padding: 10px;
+    overflow-x: auto; /* Permite desplazamiento horizontal */
+    white-space: nowrap; /* Evita que los elementos se ajusten */
+}
+
+/* Contenedor de productos de ofertas */
+.card-list-products-ofertas {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+    overflow-x: auto; /* Permite desplazamiento horizontal */
+    scroll-behavior: smooth;
+    padding: 10px;
+    width: 100%;
+    white-space: nowrap; /* Evita que los elementos se ajusten */
+}
+.card-list-products-ofertas::-webkit-scrollbar {
+    display: none;
+
+    
+}
+/* Asegura que el precio con descuento se ubique en la esquina superior izquierda */
+.precio-descontado {
+    font-size: 20px;
+    font-weight: bold;
+    color: #e74c3c; /* Color rojo para el precio con descuento */
+    margin-top: 10px;
+}
+
+/* Precio original tachado */
+.precio-original {
+    text-decoration: line-through;
+    font-size: 16px;
+    color: #888;
+}
+.precio-oferta {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(255, 0, 0, 0.7); /* Fondo rojo con opacidad */
+    color: white;
+    padding: 5px;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+/* Información adicional del producto */
+.offer {
+    font-size: 14px;
+    color: #888;
+}
+
+/* Contenedor principal */
+/* Estilo para las cards de ofertas */
+.item-ofertas {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    width: 200px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    position: relative; /* Necesario para posicionar el precio de descuento */
+}
+.item-ofertas:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    background-color: rgb(254, 159, 0);
+    transition: 0.5s ease;
+    cursor: pointer;
+}
+
+
+
+  
+  
+  .img-item {
+    width: 100%; 
+    height: 150px; 
+    object-fit: cover; 
+    border-radius: 4px; 
+  }
+  
+  /* Información del producto */
+  .info-product h2 {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  
+  .info-product .price {
+    font-size: 16px;
+    color: #555;
+    font-weight: bold;
+  }
+  
+  .flecha2 {
+    position: absolute; 
+    top: 50%; 
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5); 
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+}
+  
+  /* Flecha izquierda */
+  #izq {
+    left: 10px;
+  }
+  
+  /* Flecha derecha */
+  #der {
+    right: 10px;
+  }
 
 
 

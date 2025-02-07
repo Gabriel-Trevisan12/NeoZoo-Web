@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NeoZoo</title>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -13,17 +16,16 @@
         <div class="header">
             <!-- Menú de icono -->
             <div class="icono-menu">
-                <img src="img/menu.png" alt="franquicias">
+                <img onclick="window.location.href='index.html'" src="img/menu.png" alt="franquicias">
             </div>
-            
-            <form class="busqueda-input-box" method="POST" action="busqueda.php">
-                <input type="text" id="busqueda" name="busqueda" placeholder="Buscar..." required>
-                <button type="submit" class="busqueda-icono">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                        <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
-                    </svg>
-                </button>
-            </form>
+            <div class="carritoContacto">
+                  <div class="info">
+                  
+                            <a href="tienda.html">Comprar</a>
+                            <a href="https://wa.me/+5493413539527" target="_blank">Contacto</a>
+                            <a href="https://www.instagram.com/neozoo_rosario/?hl=es">instagram</a>
+                  
+                  </div>
             
 
             <!-- Icono del carrito y contador -->
@@ -37,138 +39,42 @@
                 </div>
             </div>
         </div>
+      </div>
 
 
 
     <!-- ofertas -->
 
-
-    <div class="carrusel">
-        <div class="carrusel-grande">
-            <img src="img/oferta-bbva.jpeg" alt="" class="carrusel-imagenes">
-            <img src="img/oferta-macro.jpeg" alt="imagen2" class="carrusel-imagenes">
+    <div class="wrapper">
+        <div class="slider" id="slider">
+          <ul class="slides">
+            <li class="slide active" id="slide1">
+            </li>
+          </ul>
+          <div class="rows2">
+            <div class="flecha1" id="izq1"><i class="fa-solid fa-chevron-left"></i></div>
+            <div class="flecha1" id="der1"><i class="fa-solid fa-chevron-right"></i></div>
         </div>
-    </div>
-
-    <div class="container-related-products">
-        <h1>ofertas</h1>
-    </div>
-    <div class="card-list-products-ofertas">
         
-        <div class="item-ofertas">
-            <figure>
-                <img class=img-item src="img/cucha-rotomoldeada.webp" alt="perrito">
-            </figure>
-            <div class="info-product">
-                <h2>cucha</h2>
-                <p class="price">$70100</p>
-                <button onclick="window.location.href='tienda.html'" class="btn-add-cart">ver mas +</button>
-        
-
-            </div>
-        </div>
-        <div class="item-ofertas">
-            <figure>
-                <img class=img-item src="img/cucha-rotomoldeada.webp" alt="perrito">
-            </figure>
-            <div class="info-product">
-                <h2>cucha</h2>
-                <p class="price">$70100</p>
-                <button onclick="window.location.href='tienda.html'" class="btn-add-cart">ver mas +</button>
-        
-
-            </div>
-        </div>
-        <div class="item-ofertas">
-            <figure>
-                <img class=img-item src="img/cucha-rotomoldeada.webp" alt="perrito">
-            </figure>
-            <div class="info-product">
-                <h2>cucha</h2>
-                <p class="price">$70100</p>
-                <button onclick="window.location.href='tienda.html'" class="btn-add-cart">ver mas +</button>
-        
-
-            </div>
-        </div>
-        <div class="item-ofertas">
-            <figure>
-                <img class=img-item src="img/cucha-rotomoldeada.webp" alt="perrito">
-            </figure>
-            <div class="info-product">
-                <h2>cucha</h2>
-                <p class="price">$70100</p>
-                <button onclick="window.location.href='tienda.html'" class="btn-add-cart">ver mas +</button>
-        
-
-            </div>
-        </div>
-        <div class="item-ofertas">
-            <figure>
-                <img class=img-item src="img/cucha-rotomoldeada.webp" alt="perrito">
-            </figure>
-            <div class="info-product">
-                <h2>cucha</h2>
-                <p class="price">$70100</p>
-                <button onclick="window.location.href='tienda.html'" class="btn-add-cart">ver mas +</button>
-        
-
-            </div>
-        </div>
-       
-    </div>
-
-
-
-    <!-- barra de busqueda rapida -->
-    <div class="menu">
-        <div class="menu-item">
-          Perros
-          <div class="submenu">
-            <a href="#">alimento</a>
-            <a href="#">correas</a>
-            <a href="#">juguetes</a>
-            <a href="#">salvavidas</a>
           </div>
+          <ul class="slider-controler">
+            
+        </ul>
+        
         </div>
-        <div class="menu-item">
-            Gatos
-            <div class="submenu">
-                <a href="#">alimento</a>
-                <a href="#">correas</a>
-                <a href="#">juguetes</a>
-              </div>
-          </div>
-          <div class="menu-item">
-            Aves
-            <div class="submenu">
-                <a href="#">alimento</a>
-                <a href="#">correas</a>
-                <a href="#">juguetes</a>
-              </div>
-          </div>
-          <div class="menu-item">
-            Hamster
-            <div class="submenu">
-                <a href="#">alimento</a>
-                <a href="#">correas</a>
-                <a href="#">juguetes</a>
-              </div>
-          </div>
-          <div class="menu-item">
-            Otros
-            <div class="submenu">
-              <a href="#">Comida</a>
-              <a href="#">Comida</a>
-              <a href="#">Comida</a>
-            </div>
-          </div>
-      </div>
+
     
-    
-    
-
-      
+      <div class="ofertas-wrapper">
+        <div class="flecha2" id="izq"><i class="fa-solid fa-chevron-left"></i></div>
+        <div class="card-list-products-ofertas">
+            
+        <div class="flecha2" id="der"><i class="fa-solid fa-chevron-right"></i></div>
+    </div>
+  </div>
+  
+ <div class="icono-wpp">
+  <a href="https://wa.me/+5493413539527" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+ </div>
 
 
 
@@ -205,8 +111,8 @@
                     <div class="footer-links">
                         <h4>redes</h4>
                         <div class="social-links">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
+                          <a href="https://wa.me/+5493413539527" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                            <a href="https://www.instagram.com/neozoo_rosario/?hl=es"><i class="fab fa-instagram"></i></a>
                             <a onclick="window.location.href='Login.php'" href="#"><i class="fa-solid fa-user"></i></i></a>
                         
                         </div>
@@ -216,8 +122,10 @@
             </div>
 
         </footer>
+        <script src="js/slider.js"></script>
         <script src="js/obtener-productos.js"></script>
         <script src="js/main.js"></script>
+        <script src="js/ofertas.js"></script>
         <script src="https://kit.fontawesome.com/e4f2f2ba40.js" crossorigin="anonymous"></script>
 </body>
 

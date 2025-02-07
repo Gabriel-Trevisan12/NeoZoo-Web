@@ -1,124 +1,121 @@
-const contenedorTarjetas = document.getElementById("contenedorCarrito");
-const totalAmountElement = document.getElementById("totalAmount"); // Referencia al total
+// Obtener el carrito desde localStorage o inicializarlo vacío
+let cart = JSON.parse(localStorage.getItem("productos")) || [];
 
-function crearCards() {
-    const productos = JSON.parse(localStorage.getItem("productos")) || [];
-    contenedorTarjetas.innerHTML = ""; // Limpia el contenedor antes de añadir nuevos productos
+// Renderizar el carrito
+function renderCart() {
+    const cartItems = document.getElementById("cart-items");
+    cartItems.innerHTML = "";
 
-    productos.forEach((producto, index) => {
-        const nuevoProducto = document.createElement("div");
-        nuevoProducto.innerHTML = `
-        <div class="card-carrito">
-            <div class="left">
-                <img class="img-card" src="${producto.imagen}" alt="${producto.nombre}">
-                <h2>${producto.nombre}</h2>
+    cart.forEach((producto, index) => {
+        const precio = parseFloat(producto.precioOriginal) || 0;
+        const oferta = parseFloat(producto.oferta) || 0;
+        const tieneOferta = oferta > 0;
+        const precioFinal = parseFloat(producto.precioFinal) || 0;
+
+        const itemElement = document.createElement("div");
+        itemElement.className = "cart-item";
+        itemElement.innerHTML = `
+            <div class="img-carrito">
+            <img src="${producto.imagen}" alt="${producto.nombre}">
+            ${tieneOferta ? `<div class="precio-oferta">-${oferta}%</div>` : ''} 
             </div>
-            <div class="right">
-            <div class="container-quantity">
-                <i class="fa-solid fa-plus" id="increment-${index}" class="increment"></i>
-                <input type="number" placeholder="1" value="${producto.cantidad || 1}" min="1" class="input-card" data-index="${index}">
-                <i class="fa-solid fa-minus" id="decrement-${index}" class="decrement"></i>
+            <div class="item-details">
+                <div class="item-name">${producto.nombre}</div>
+                <p class="item-price">
+                    ${tieneOferta ? `<span class="precio-original">$${precio.toFixed(2)}</span>` : ''} 
+                    <span class="${tieneOferta ? 'precio-descontado' : 'precio-normal'}">$${precioFinal.toFixed(2)}</span>
+                </p>
             </div>
-                <p class="price-finaly">$${producto.precio}</p>
-                <button class="btn-add-cart" data-index="${index}">X</button>
+            <div class="item-quantity">
+                <button class="quantity-btn" onclick="updateQuantity(${index}, ${producto.cantidad - 1})">-</button>
+                <span>${producto.cantidad}</span>
+                <button class="quantity-btn" onclick="updateQuantity(${index}, ${producto.cantidad + 1})">+</button>
             </div>
-        </div>
+            <button class="remove-btn" onclick="removeItem(${index})">Eliminar</button>
         `;
-        contenedorTarjetas.appendChild(nuevoProducto);
-
-        // Agregar evento al botón de eliminar
-        const botonEliminar = nuevoProducto.querySelector(".btn-add-cart");
-        botonEliminar.addEventListener("click", () => {
-            eliminarProducto(index);
-        });
-
-        // Agregar evento al input para cambiar cantidad
-        const inputCantidad = nuevoProducto.querySelector(".input-card");
-        inputCantidad.addEventListener("input", (event) => {
-            actualizarCantidad(index, event.target.value);
-        });
-
-        // Agregar eventos a los botones de incremento y decremento
-        const btnIncrement = nuevoProducto.querySelector(`#increment-${index}`);
-        const btnDecrement = nuevoProducto.querySelector(`#decrement-${index}`);
-
-        btnIncrement.addEventListener('click', () => {
-            const cantidadInput = nuevoProducto.querySelector(".input-card");
-            let nuevaCantidad = parseInt(cantidadInput.value) + 1;
-            cantidadInput.value = nuevaCantidad;
-            actualizarCantidad(index, nuevaCantidad);
-        });
-
-        btnDecrement.addEventListener('click', () => {
-            const cantidadInput = nuevoProducto.querySelector(".input-card");
-            let nuevaCantidad = Math.max(1, parseInt(cantidadInput.value) - 1);
-            cantidadInput.value = nuevaCantidad;
-            actualizarCantidad(index, nuevaCantidad);
-        });
+        cartItems.appendChild(itemElement);
     });
 
-    actualizarTotal(); // Calcula y actualiza el total al renderizar las tarjetas
+    updateTotal(); // Llamamos a la función de actualización de totales después de renderizar las cards
 }
 
-function actualizarCantidad(index, nuevaCantidad) {
-    const productos = JSON.parse(localStorage.getItem("productos")) || [];
-    productos[index].cantidad = parseInt(nuevaCantidad) || 1;
-    localStorage.setItem("productos", JSON.stringify(productos));
-    actualizarTotal(); // Calcula y actualiza el total cuando cambia la cantidad
+
+
+// Actualizar cantidad de un producto
+function updateQuantity(index, newQuantity) {
+    if (newQuantity <= 0) {
+        removeItem(index);
+    } else {
+        cart[index].cantidad = newQuantity;
+        localStorage.setItem("productos", JSON.stringify(cart));
+        renderCart(); // Volver a renderizar el carrito con los nuevos datos
+    }
 }
 
-function actualizarTotal() {
-    const productos = JSON.parse(localStorage.getItem("productos")) || [];
-    const total = productos.reduce((sum, producto) => {
-        return sum + producto.precio * (producto.cantidad || 1);
-    }, 0);
-    totalAmountElement.textContent = total.toFixed(2); // Actualiza el elemento del total con 2 decimales
+// Eliminar un producto del carrito
+function removeItem(index) {
+    cart.splice(index, 1);
+    localStorage.setItem("productos", JSON.stringify(cart));
+    renderCart(); // Volver a renderizar el carrito con los productos actualizados
 }
 
-function eliminarProducto(index) {
-    const productos = JSON.parse(localStorage.getItem("productos")) || [];
-    productos.splice(index, 1); // Elimina el producto de la lista
-    localStorage.setItem("productos", JSON.stringify(productos));
-    actualizarCarrito(); // Vuelve a renderizar las tarjetas
+// Calcular y actualizar el total
+function updateTotal() {
+    let totalOriginal = 0;
+    let totalDescuento = 0;
+
+    // Recorrer el carrito para calcular los totales
+    cart.forEach(producto => {
+        const precioOriginal = parseFloat(producto.precioOriginal) || 0; // Usamos el precio original
+        const precioFinal = parseFloat(producto.precioFinal) || 0; // Usamos el precio final con descuento
+
+        totalOriginal += precioOriginal * producto.cantidad; // Total original sin descuento
+        totalDescuento += precioFinal * producto.cantidad;  // Total con descuento aplicado
+    });
+
+    const totalDescuentoAcumulado = totalOriginal - totalDescuento;
+
+    // Mostrar el total original y el total con descuento
+    document.getElementById("cart-total-original").textContent = `Total Original: $${totalOriginal.toFixed(2)}`;
+    document.getElementById("cart-total-desconto").textContent = `Descuento acumulado: -$${totalDescuentoAcumulado.toFixed(2)}`;
+    document.getElementById("cart-total").textContent = `Total a pagar: $${totalDescuento.toFixed(2)}`;
 }
 
-function actualizarCarrito() {
-    contenedorTarjetas.innerHTML = ""; // Limpia el contenedor
-    crearCards(); // Vuelve a crear las tarjetas
-}
+// Enviar pedido por WhatsApp
 
-// Inicializar el carrito
-crearCards();
-
-
-document.getElementById("enviarPedido").addEventListener("click", function() {
-    const productos = JSON.parse(localStorage.getItem("productos")) || [];
-
-    // Si no hay productos, no hacer nada
-    if (productos.length === 0) {
+document.getElementById("checkout-btn").addEventListener("click", function() {
+    if (cart.length === 0) {
         alert("El carrito está vacío.");
         return;
     }
 
-    // Crear el mensaje para WhatsApp
     let mensaje = "Pedido de carrito:\n\n";
-    productos.forEach(producto => {
-        mensaje += `${producto.nombre} x${producto.cantidad} - $${producto.precio * producto.cantidad}\n`;
+    cart.forEach(producto => {
+        const precioDescontado = parseFloat(producto.precioFinal) || 0;  // Usamos precioFinal con descuento
+        mensaje += `${producto.nombre} x${producto.cantidad} - $${(precioDescontado * producto.cantidad).toFixed(2)}\n`;
     });
-    
-    mensaje += `\nTotal: $${productos.reduce((sum, producto) => sum + producto.precio * producto.cantidad, 0).toFixed(2)}`;
 
-    // Limpiar el carrito y el localStorage
-    localStorage.removeItem("productos"); // O localStorage.clear() si quieres limpiar todo el localStorage
+    // Calcular el total original, descuento acumulado y total a pagar
+    const totalOriginal = cart.reduce((sum, producto) => sum + (producto.precioOriginal * producto.cantidad), 0);
+    const totalDescuento = cart.reduce((sum, producto) => sum + (producto.precioFinal * producto.cantidad), 0);
+    const descuentoAcumulado = totalOriginal - totalDescuento;
 
-    // Redirigir a WhatsApp con el mensaje
-    const numeroWhatsapp = "+5493413539527"; // Reemplaza con tu número de WhatsApp
+    mensaje += `\nTotal Original: $${totalOriginal.toFixed(2)}`;
+    mensaje += `\nDescuento acumulado: -$${descuentoAcumulado.toFixed(2)}`;
+    mensaje += `\nTotal a pagar: $${totalDescuento.toFixed(2)}`;
+
+    // Número de WhatsApp
+    const numeroWhatsapp = "+5493413539527";
     const urlWhatsApp = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`;
 
-    // Abrir el enlace de WhatsApp
-    window.open(urlWhatsApp, "_blank");
+    // Limpiar carrito
+    localStorage.removeItem("productos");
+    cart = [];
+    renderCart(); // Volver a renderizar el carrito vacío
 
-    // Limpiar la interfaz de usuario
-    contenedorTarjetas.innerHTML = "";
-    actualizarTotal();
+    // Redirigir a WhatsApp
+    window.open(urlWhatsApp, "_blank");
 });
+
+// Inicializar el carrito
+renderCart();

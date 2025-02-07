@@ -9,10 +9,16 @@
     box-sizing: border-box;
 }
 
-body {
+.montserratfuente> {
+    font-family: "Montserrat", serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+  }
+  body {
+      font-family: "Montserrat", serif;
     max-width: 100%;
     margin: 0 auto;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: rgb(17, 96, 63);
     background-color: rgb(17, 96, 63);
     
@@ -21,43 +27,142 @@ body {
 
 .header {
     display: flex;
-    justify-content: space-between;
     background-color: #fff;
-    margin-bottom: 1em;
+    justify-content: space-between;
+}
+.carritoContacto{
+    display: flex;
+    margin-right: 90px;
+}
+.info{
+    display: flex;
+    align-items: center;
+    margin-left: 0 auto;
+}
+.info a{
+    font-size: 18px;
+    margin-left: 10px;
+    color: #000;
+}
+.icono-wpp{
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    bottom: 20px;
+    right: 20px;
+    background-color:rgba(37, 211, 102, 1);
+    color: white;
+    border-radius: 50%;
+    z-index: 1000;
+}
+.icono-wpp i{
+    color: #000;
+    cursor: pointer;
+
 }
 
 /* Carrusel */
 
-.carrusel {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    background-color: #fff;
-    overflow: hidden;
-    align-items: center;
-    justify-content: center; 
-    align-items: center;
+.wrapper {
+    width: 100%; 
+    margin: 0 auto;
 }
 
-.carrusel-grande {
-    width: 200%;
-    background-color: #fff;
+.slider {
+    position: relative;
+    width: 100%; 
+    height: 50px; 
+}
+
+.slides {
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
+    transition: transform 1s ease-in-out;
+    width: 100%; 
+}
+
+.slide {
+    width: 100%; 
+    flex-shrink: 0;
+    opacity: 0; 
+    display: none; 
+    transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+    display: block; 
+    opacity: 1;
+}
+
+.slide img {
+    width: 100%; 
+    height: 400px; 
+    display: block;
+}
+
+.caption {
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px black;
+    font-size: 8vw;
+    position: absolute;
+    bottom: 8vw;
+    right: 4vw;
+}
+
+.slider-controler {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 35%;
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 100;
+}
+
+.slider-controler li {
+    display: inline-block;
+    margin: 0 0.5rem;
+}
+
+.slider-controler a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+.slider-controler a.active {
+    color: rgb(255, 247, 0);
+}
+.flecha1{
+    position: absolute;
+    top: 150%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    display: flex;
     align-items: center;
-    transition: all .5s ease;
-    transform: translate(0%);
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
 }
+/* Flecha izquierda */
+#izq1 {
+    left: 10px;
+  }
+  
+  /* Flecha derecha */
+#der1 {
+    right: 10px;
+  }
 
-.carrusel-imagenes {
-    width: calc(50% 100 - 2em);
-    min-height: 10vh;
-    height: 400px;
-    width: 100%;
-    min-width: none;
 
-}
 
 
 /* Iconos y menus */
@@ -68,20 +173,15 @@ body {
     display: flex;
     align-items: center;
     text-align: center;
+    border-radius: 100px;
 }
-.busqueda-input-box input {
+#busqueda{
     width: 100%;
     height: 3em;
     font-size: 1em;
-    border-radius: 0.5em;
+    border-radius:100px;
 }
 
-.busqueda-icono {
-    margin: 0.4em;
-    width: 1.7em;
-    height: 1.7em;
-
-}
 
 .icon-cart {
     position: absolute;
@@ -95,6 +195,9 @@ body {
 .icono-menu img {
     width: 12em;
     position: relative;
+}
+.icono-menu :hover{
+    cursor: pointer;
 }
 
 .menu-portada {
@@ -160,16 +263,27 @@ body {
    
     
 }
+#contenedorDinamico{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; 
+}
+
 
 .item {
     display: flex;
+    max-width: 260px;
+    max-height: 525px;
     flex-direction: column;
     border-radius: 10px;
     background-color: rgb(255, 255, 255);
     box-sizing: border-box; 
     width: 100%;
 }
-
+figure {
+    position: relative; 
+    display: inline-block;
+}
 .item:hover {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     background-color: rgb(254, 159, 0);
@@ -177,8 +291,8 @@ body {
 }
 
 .item img {
-    width: 100%;
-    height: 300px;
+    width: 100%; /* Hace que la imagen ocupe todo el contenedor */
+    height: 100%; /* Ajusta la altura de la imagen para que cubra todo el contenedor */
     object-fit: cover;
     border-radius: 10px 10px 0 0;
     transition: all 0.5s;
@@ -189,7 +303,11 @@ body {
 }
 
 .item figure {
+    position: relative;
+    width: 100%; 
+    height: 200px; 
     overflow: hidden;
+    display: flex;
 }
 
 .info-product {
@@ -282,7 +400,7 @@ margin: 0 auto;
 /* pagina de informacion de productos */
 
 .menu {
-    background-color: rgb(0, 95, 61);
+    background-color: rgb(0, 0, 0);
     max-width: 100%;
     position: relative; 
     width: 100%; 
@@ -291,10 +409,17 @@ margin: 0 auto;
     padding: 10px;
     justify-content: space-between;
     box-sizing: border-box;
+
   }
 .menu-item:hover{
-color: rgb(254, 159, 0);
+  color: rgb(254, 159, 0);
+  display: block;
   }
+  .menu-item:hover .submenu {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
   
 .menu-item {
     position: relative;
@@ -307,6 +432,7 @@ color: rgb(254, 159, 0);
 .submenu {
     display: none;
     position: absolute;
+    border-radius: 10px;
     top: 100%;
     left: 0;
     right: 0; 
@@ -329,41 +455,155 @@ color: rgb(254, 159, 0);
   }
 
 
-.card-list-products-ofertas{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
-}
 
+
+  /* Ajustes para el contenedor de las ofertas */
+.ofertas-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top: 40px;  /* Espaciado después del slider */
+    padding: 10px;
+}
+/* Estilo para las cards de ofertas */
+.card-list-products-ofertas {
+    display: flex;
+    gap: 16px;
+    margin-top: 340px;  /* Espacio entre el slider y las ofertas */
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px;
+    width: 100%;
+}
+.precio-oferta {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(255, 0, 0, 0.7); /* Fondo rojo con opacidad */
+    color: white;
+    padding: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+} 
+
+/* Contenedor principal */
+/* Estilo para las cards de ofertas */
 .item-ofertas {
     display: flex;
     flex-direction: column;
-    border-radius: 10px;
-    background-color: rgb(255, 255, 255);
-    margin: 10px;
-    box-sizing: border-box; 
-    width: 100%;
-    
+    justify-content: flex-start;
+    flex-shrink: 0; 
+    width: 200px; 
+    background-color: #fff; 
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    text-align: center; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    padding: 10px;
+    position: relative; /* Necesario para posicionar el precio de descuento */
+}
+.item-ofertas:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    background-color: rgb(254, 159, 0);
+    transition: 0.5s ease;
 }
 
-.item-ofertas img {
-    width: 70%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 10px 10px 0 0;
-    transition: all 0.5s;
+/* Asegura que el precio con descuento se ubique en la esquina superior izquierda */
+.precio-descontado {
+    font-size: 18px;
+    font-weight: bold;
+    color: #e74c3c; /* Color rojo para el precio con descuento */
+    margin-top: 10px;
 }
+
+/* Precio original tachado */
+.precio-original {
+    text-decoration: line-through;
+    font-size: 16px;
+    color: #888;
+}
+
+/* Información adicional del producto */
+.offer {
+    font-size: 14px;
+    color: #888;
+}
+
+/* Ajuste visual para el texto del precio */
+.info-product .price {
+    font-size: 16px;
+    color: #555;
+    font-weight: bold;
+}
+
+
+.card-list-products-ofertas::-webkit-scrollbar {
+    display: none;
+
+    
+}
+  
+  .item-ofertas :hover{
+    cursor: pointer;
+  }
+  
+  
+  .img-item {
+    width: 100%; 
+    height: 150px; 
+    object-fit: cover; 
+    border-radius: 4px; 
+  }
+  
+  /* Información del producto */
+  .info-product h2 {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  
+  .info-product .price {
+    font-size: 16px;
+    color: #555;
+    font-weight: bold;
+  }
+  
+  .flecha2 {
+    position: absolute; 
+    top: 70%; 
+    transform: translateY(-50%); 
+    background-color: rgba(0, 0, 0, 0.5); 
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  /* Flecha izquierda */
+  #izq {
+    left: 10px;
+  }
+  
+  /* Flecha derecha */
+  #der {
+    right: 10px;
+  }
+  
 
 
 /* Responsive */
 
 @media (max-width: 768px) {
-
-    .carrusel {
-        width: 100%;
-        max-width: 100%;
-    }
     .container-items {
         grid-template-columns: repeat(2, 1fr);
+    }
+    .slider-controler {
+        display: none;
     }
     
     .menu-portada, .container-cart-products {
@@ -387,10 +627,8 @@ color: rgb(254, 159, 0);
     .busqueda-icono{
         display: none;
     }
-
-    .carrusel {
-        width: 100%;
-        max-width: 100%;
+    .slider-controler {
+        display: none;
     }
     
     .container-items {
